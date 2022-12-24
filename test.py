@@ -22,7 +22,7 @@ with st.echo():
     options.add_argument('--headless')
 
     driver = get_driver()
-    driver.get("http://example.com")
+    driver.get("enweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8")
 
     st.code(driver.page_source)
 # Footer
