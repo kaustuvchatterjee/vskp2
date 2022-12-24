@@ -14,13 +14,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # @st.experimental_singleton
 # def get_driver():
-webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
 
 options = Options()
 options.add_argument('--disable-gpu')
 options.add_argument('--headless')
-
-driver = get_driver()
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+# driver = get_driver()
 driver.get("https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8")
 
 
