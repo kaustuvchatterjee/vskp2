@@ -13,7 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# from PIL import Image, ImageEnhance
+from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 
@@ -25,7 +25,7 @@ import requests, json, datetime
 import os
 
 import matplotlib.dates as mdates
-# from matplotlib.dates import DateFormatter
+from matplotlib.dates import DateFormatter
 import pandas as pd
 from windrose import WindroseAxes
 
