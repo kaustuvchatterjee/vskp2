@@ -36,21 +36,21 @@ st.code(browser.page_source)
 element_present = EC.visibility_of_all_elements_located((By.XPATH, Xpath))
 ImageList = WebDriverWait(browser, timeout).until(element_present)
 
-# s = []
-# l = []
-# t = []
-# for element in ImageList:
+s = []
+l = []
+t = []
+for element in ImageList:
 
-#     src = element.get_attribute('src')
-#     data = element.get_attribute('style')
-#     # print(data)
-#     img_data = parseData(data)
-#     l.append(img_data[2])
-#     t.append(img_data[3])
-#     s.append(src)
-#     h = img_data[0]
-#     w = img_data[1]
-# st.text(h,w)
+    src = element.get_attribute('src')
+    data = element.get_attribute('style')
+    # print(data)
+    img_data = parseData(data)
+    l.append(img_data[2])
+    t.append(img_data[3])
+    s.append(src)
+    h = img_data[0]
+    w = img_data[1]
+st.text(h,w)
 # Footer
 # © 2022 GitHub, Inc.
 # Footer navigation
