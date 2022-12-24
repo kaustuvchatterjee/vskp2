@@ -137,7 +137,7 @@ if elapsed > reftime:
     options.add_argument("--headless")
     options.add_argument("window-size=1920,1080")
     timeout = 15
-    browser = webdriver.Chrome(options=options)
+    browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     
     
     # Base Map
