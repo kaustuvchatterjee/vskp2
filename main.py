@@ -21,11 +21,11 @@ import urllib.request
 # import numpy as np
 # import matplotlib.pyplot as plt
 
-import requests, json, datetime
+import requests, datetime
 import os
 
 import matplotlib.dates as mdates
-from matplotlib.dates import DateFormatter
+# from matplotlib.dates import DateFormatter
 import pandas as pd
 from windrose import WindroseAxes
 
@@ -136,7 +136,7 @@ if elapsed > reftime:
     options = Options()
     options.add_argument("--headless")
     options.add_argument("window-size=1920,1080")
-    timeout = 10
+    timeout = 15
     browser = webdriver.Chrome(options=options)
     
     
@@ -318,12 +318,7 @@ if elapsed > reftime:
     
     img.save('04_curweather.jpg')
     
-    fig1 = plt.figure(figsize=(12,8))
-    plt.imshow(img)
-    plt.xticks([])
-    plt.yticks([])
-    plt.show()
-    
+  
     
     #-----------------------------------
     # Historical Data
@@ -392,7 +387,7 @@ if elapsed > reftime:
     ax[2].set(xlabel="Date",
            ylabel="Wind Speed (km/h)",
            title="Wind")
-    ax[2].set_ylim([0,20])
+    ax[2].set_ylim([0,30])
     locator = mdates.AutoDateLocator(minticks=3, maxticks=12)
     formatter = mdates.ConciseDateFormatter(locator)
     formatter.formats = ['%y',  # ticks are mostly years
@@ -431,13 +426,11 @@ if elapsed > reftime:
     fig3 = plt.gcf()
     plt.savefig('windrose.jpg')
 
-
+    f = open('lastrun.txt','w+')
+    f.write(str(datetime.datetime.now()))
+    f.close()
 
     
 st.image('04_curweather.jpg')
 st.image('meteo.jpg')
 st.image('windrose.jpg')
-
-f = open('lastrun.txt','w+')
-f.write(str(datetime.datetime.now()))
-f.close()
