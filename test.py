@@ -32,8 +32,9 @@ url = 'https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clou
 Xpath = '//*[@id="map"]/div[1]/div[1]/div[2]/div[2]/*'
 
 browser.get(url)
+st.code(browser.page_source)
 element_present = EC.visibility_of_all_elements_located((By.XPATH, Xpath))
-# ImageList = WebDriverWait(browser, timeout).until(element_present)
+ImageList = WebDriverWait(browser, timeout).until(element_present)
 
 # s = []
 # l = []
