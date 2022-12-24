@@ -6,3 +6,5 @@ requests==2.28.1
 selenium==4.7.2
 streamlit==1.16.0
 windrose==1.8.1
+seleniumbase
+webdriver-manager
