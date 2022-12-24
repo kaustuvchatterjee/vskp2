@@ -19,12 +19,34 @@ from webdriver_manager.chrome import ChromeDriverManager
 options = Options()
 options.add_argument('--disable-gpu')
 options.add_argument('--headless')
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 # driver = get_driver()
-driver.get("https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8")
-print(driver.page_source)
+browser.get("https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8")
+# print(driver.page_source)
+timeout = 15
 
+      url = 'https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8'
+      Xpath = '//*[@id="map"]/div[1]/div[1]/div[2]/div[2]/*'
 
+      browser.get(url)
+      element_present = EC.visibility_of_all_elements_located((By.XPATH, Xpath))
+      ImageList = WebDriverWait(browser, timeout).until(element_present)
+
+      s = []
+      l = []
+      t = []
+      for element in ImageList:
+
+          src = element.get_attribute('src')
+          data = element.get_attribute('style')
+          # print(data)
+          img_data = parseData(data)
+          l.append(img_data[2])
+          t.append(img_data[3])
+          s.append(src)
+          h = img_data[0]
+          w = img_data[1]
+st.text(h,w)
 # Footer
 # © 2022 GitHub, Inc.
 # Footer navigation
