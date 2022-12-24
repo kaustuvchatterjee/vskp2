@@ -22,6 +22,7 @@ options.add_argument('--headless')
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 # driver = get_driver()
 driver.get("https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8")
+print(driver.page_source)
 
 
 # Footer
