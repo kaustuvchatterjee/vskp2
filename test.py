@@ -25,8 +25,8 @@ with st.echo():
     driver.get("http://example.com")
 
     st.code(driver.page_source)
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
+# Footer
+# © 2022 GitHub, Inc.
+# Footer navigation
+# Terms
+# Privacy
