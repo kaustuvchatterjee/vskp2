@@ -151,8 +151,8 @@ if elapsed > reftime:
         Xpath = '//*[@id="map"]/div[1]/div[1]/div[2]/div[2]/*'
     
         browser.get(url)
-        element_present = EC.visibility_of_all_elements_located((By.XPATH, Xpath))
-        ImageList = WebDriverWait(browser, timeout).until(element_present)
+#         element_present = EC.visibility_of_all_elements_located((By.XPATH, Xpath))
+#         ImageList = WebDriverWait(browser, timeout).until(element_present)
     
         s = []
         l = []
