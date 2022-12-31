@@ -28,7 +28,7 @@ browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opt
 # driver = get_driver()
 browser.get("https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8")
 # print(driver.page_source)
-timeout = 15
+timeout = 60
 
 url = 'https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8'
 Xpath = '//*[@id="map"]/div[1]/div[1]/div[2]/div[2]/*'
