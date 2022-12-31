@@ -22,6 +22,7 @@ from selenium.webdriver.support import expected_conditions as EC
 options = Options()
 options.add_argument('--disable-gpu')
 options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 # driver = get_driver()
 browser.get("https://openweathermap.org/weathermap?basemap=map&cities=false&layer=clouds&lat=17.69&lon=83.2093&zoom=8")
