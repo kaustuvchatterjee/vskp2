@@ -328,6 +328,7 @@ if elapsed > reftime:
     draw.text((120, 10),tmstr,(0,0,0),font=font)
     
     img.save('04_curweather.jpg')
+    st.image('04_curweather.jpg')
     
   
     
@@ -442,6 +443,5 @@ f.write(str(datetime.datetime.now()))
 f.close()
 
     
-st.image('04_curweather.jpg')
 st.image('meteo.jpg')
 st.image('windrose.jpg')
