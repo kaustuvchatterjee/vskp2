@@ -331,115 +331,115 @@ if elapsed > reftime:
     
   
     
-    #-----------------------------------
-    # Historical Data
-    #-----------------------------------
-    
-    df = pd.read_csv('vskpwdata.csv')
-    df['obsDate'] = pd.to_datetime(df['obsDate'], format = "%d-%m-%y %H:%M")
-    
-    fig2, ax = plt.subplots(3,1, figsize=(12,12), sharex=True)
-    
-    # Temperature
-    x=df['obsDate']
-    y = df['temp']
-    y2 = df['tempFeel']
-    
-    ax[0].plot(x,y, color='C0', label='Temperature')
-    ax[0].plot(x,y2, color = 'C1', label='Feels Like')
-    
-    ax[0].set(xlabel="Date",
-           ylabel="Temp (°C)",
-           title="Temperature")
-    ax[0].set_ylim([0,50])
-    
-    ax[0].legend()
-    ax[0].grid()
-    
-    
-    # Precipitation
-    x=df['obsDate']
-    y = np.array(df['RH'])
-    y2 = np.array(df['rain'].astype(int))
-    y3 = np.array(df['clouds'].astype(int))
-    
-    ax[1].plot(x,y, color='C0', label='Relative Humidity')
-    ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.01)
-    ax[1].plot(x,y3, color='gray', label='cloud Cover')
-    ax[1].fill_between(x,np.zeros(len(y3)),y3, color='gray', alpha=0.1)
-    ax[1].legend(loc=2, frameon=False)
-    ax[1].set_ylim(bottom=0)
-    ax2 = ax[1].twinx()
-    ax2.plot(x,y2, color = 'g', label='Rain')
-    ax2.fill_between(x,np.zeros(len(y2)),y2, color='g', alpha=0.5)
-    
-    ax[1].set(xlabel="Date",
-           ylabel="Relative Humidity (%)",
-           title="Precipitation")
-    ax2.set(ylabel="Precipitation (mm)")
-    ax2.legend(loc=[0.007,0.76], frameon=False)
-    ax2.set_ylim(bottom=0)
-    
-    ax[1].grid()
-    
-    # Wind
-    ws = df['windSpeed']
-    wd = df['windDir']
-    
-    wd = 270-wd
-    x=df['obsDate']
-    y = ws
-    u = np.cos(np.radians(wd))
-    v = np.sin(np.radians(wd))
-    
-    ax[2].plot(x,y, color='C0')
-    ax[2].quiver(x,y,u,v, color='#008080', width=0.005, pivot='mid', scale=5, scale_units='inches')
-    
-    ax[2].set(xlabel="Date",
-           ylabel="Wind Speed (km/h)",
-           title="Wind")
-    ax[2].set_ylim([0,30])
-    locator = mdates.AutoDateLocator(minticks=3, maxticks=12)
-    formatter = mdates.ConciseDateFormatter(locator)
-    formatter.formats = ['%y',  # ticks are mostly years
-                         '%b',       # ticks are mostly months
-                         '%d',       # ticks are mostly days
-                         '%H:%M',    # hrs
-                         '%H:%M',    # min
-                         '%S.%f', ]  # secs
-    # these are mostly just the level above...
-    formatter.zero_formats = [''] + formatter.formats[:-1]
-    # ...except for ticks that are mostly hours, then it is nice to have
-    # month-day:
-    formatter.zero_formats[3] = '%d-%b'
-    
-    formatter.offset_formats = ['',
-                                '%Y',
-                                '%b %Y',
-                                '%d %b %Y',
-                                '%d %b %Y',
-                                '%d %b %Y %H:%M', ]
-    
-    ax[2].xaxis.set_major_locator(locator)
-    ax[2].xaxis.set_major_formatter(formatter)
-    ax[2].grid()
-    
-    fig2.tight_layout()
-    plt.savefig('meteo.jpg',dpi=150)
+#-----------------------------------
+# Historical Data
+#-----------------------------------
 
-    
-    
-    ax = WindroseAxes.from_ax()
-    ax.bar(df['windDir'], df['windSpeed'], normed=True, opening=0.8, edgecolor='white',bins=np.arange(0, 20, 4))
-    ax.set_legend(loc=[0.9,0.9], frameon=False)
-    ax.set(title="Windrose\nWind Speed (km/h)",
-          yticklabels=[])
-    fig3 = plt.gcf()
-    plt.savefig('windrose.jpg')
+df = pd.read_csv('vskpwdata.csv')
+df['obsDate'] = pd.to_datetime(df['obsDate'], format = "%d-%m-%y %H:%M")
 
-    f = open('lastrun.txt','w+')
-    f.write(str(datetime.datetime.now()))
-    f.close()
+fig2, ax = plt.subplots(3,1, figsize=(12,12), sharex=True)
+
+# Temperature
+x=df['obsDate']
+y = df['temp']
+y2 = df['tempFeel']
+
+ax[0].plot(x,y, color='C0', label='Temperature')
+ax[0].plot(x,y2, color = 'C1', label='Feels Like')
+
+ax[0].set(xlabel="Date",
+       ylabel="Temp (°C)",
+       title="Temperature")
+ax[0].set_ylim([0,50])
+
+ax[0].legend()
+ax[0].grid()
+
+
+# Precipitation
+x=df['obsDate']
+y = np.array(df['RH'])
+y2 = np.array(df['rain'].astype(int))
+y3 = np.array(df['clouds'].astype(int))
+
+ax[1].plot(x,y, color='C0', label='Relative Humidity')
+ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.01)
+ax[1].plot(x,y3, color='gray', label='cloud Cover')
+ax[1].fill_between(x,np.zeros(len(y3)),y3, color='gray', alpha=0.1)
+ax[1].legend(loc=2, frameon=False)
+ax[1].set_ylim(bottom=0)
+ax2 = ax[1].twinx()
+ax2.plot(x,y2, color = 'g', label='Rain')
+ax2.fill_between(x,np.zeros(len(y2)),y2, color='g', alpha=0.5)
+
+ax[1].set(xlabel="Date",
+       ylabel="Relative Humidity (%)",
+       title="Precipitation")
+ax2.set(ylabel="Precipitation (mm)")
+ax2.legend(loc=[0.007,0.76], frameon=False)
+ax2.set_ylim(bottom=0)
+
+ax[1].grid()
+
+# Wind
+ws = df['windSpeed']
+wd = df['windDir']
+
+wd = 270-wd
+x=df['obsDate']
+y = ws
+u = np.cos(np.radians(wd))
+v = np.sin(np.radians(wd))
+
+ax[2].plot(x,y, color='C0')
+ax[2].quiver(x,y,u,v, color='#008080', width=0.005, pivot='mid', scale=5, scale_units='inches')
+
+ax[2].set(xlabel="Date",
+       ylabel="Wind Speed (km/h)",
+       title="Wind")
+ax[2].set_ylim([0,30])
+locator = mdates.AutoDateLocator(minticks=3, maxticks=12)
+formatter = mdates.ConciseDateFormatter(locator)
+formatter.formats = ['%y',  # ticks are mostly years
+                     '%b',       # ticks are mostly months
+                     '%d',       # ticks are mostly days
+                     '%H:%M',    # hrs
+                     '%H:%M',    # min
+                     '%S.%f', ]  # secs
+# these are mostly just the level above...
+formatter.zero_formats = [''] + formatter.formats[:-1]
+# ...except for ticks that are mostly hours, then it is nice to have
+# month-day:
+formatter.zero_formats[3] = '%d-%b'
+
+formatter.offset_formats = ['',
+                            '%Y',
+                            '%b %Y',
+                            '%d %b %Y',
+                            '%d %b %Y',
+                            '%d %b %Y %H:%M', ]
+
+ax[2].xaxis.set_major_locator(locator)
+ax[2].xaxis.set_major_formatter(formatter)
+ax[2].grid()
+
+fig2.tight_layout()
+plt.savefig('meteo.jpg',dpi=150)
+
+
+
+ax = WindroseAxes.from_ax()
+ax.bar(df['windDir'], df['windSpeed'], normed=True, opening=0.8, edgecolor='white',bins=np.arange(0, 20, 4))
+ax.set_legend(loc=[0.9,0.9], frameon=False)
+ax.set(title="Windrose\nWind Speed (km/h)",
+      yticklabels=[])
+fig3 = plt.gcf()
+plt.savefig('windrose.jpg')
+
+f = open('lastrun.txt','w+')
+f.write(str(datetime.datetime.now()))
+f.close()
 
     
 st.image('04_curweather.jpg')
