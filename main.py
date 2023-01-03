@@ -31,6 +31,97 @@ import matplotlib.dates as mdates
 import pandas as pd
 from windrose import WindroseAxes
 
+## Procs
+def parseData(data):
+
+    attrList = data.split(';')
+    h = attrList[0]
+    h = h.split(':')[1].strip()
+    h = int(h.split('px')[0].strip())
+
+    w = attrList[1]
+    w = w.split(':')[1].strip()
+    w = int(w.split('px')[0].strip())
+
+    l = attrList[2]
+    l = l.split(':')[1].strip()
+    l = int(l.split('px')[0].strip())
+
+    t = attrList[3]
+    t = t.split(':')[1].strip()
+    t = int(t.split('px')[0].strip())
+
+    return [h,w,l,t]
+
+def createBaseFromTiles(s, l, t, h, w):
+    # print(s,l,t)
+    # min_l = np.min(l)
+    max_l = np.max(l)+w
+    # min_t = np.min(t)
+    max_t = np.max(t)+h
+    img = Image.new('RGBA',(max_l, max_t))
+    # print(min_l, max_l, min_t, max_t)
+
+
+    for i in range(len(s)):
+
+        urllib.request.urlretrieve(s[i], 'tmp.png')
+        fmg = Image.open('tmp.png')
+        # fmg.resize((w,h))
+        img.paste(fmg,(l[i],t[i]))
+        # img.show()
+    img = img.convert('RGB')
+
+    t=3
+    width = img.size[0] 
+    height = img.size[1] 
+    for i in range(0,width):# process all pixels
+        for j in range(0,height):
+            data = img.getpixel((i,j))
+            #print(data) #(255, 255, 255)
+            if ((data[0]>=211-t and data[0]<=211+t) and (data[1]>=217-t and data[1]<=217+t) and (data[2]>=220-t and data[2]<=220+t)):
+                img.putpixel((i,j),(data[0],data[1],255))
+
+    return img
+
+def pasteCloudLayer(img, s,l,t,h,w):
+    for i in range(len(s)):
+
+        urllib.request.urlretrieve(s[i], 'tmp.png')
+        fmg = Image.open('tmp.png')
+        # fmg.resize((w,h))
+        img.paste(fmg,(l[i],t[i]),fmg)
+
+    img = img.convert('RGB')    
+    return img
+
+def pasteRadarLayer(img, s,l,t,h,w):
+    for i in range(len(s)):
+
+        urllib.request.urlretrieve(s[i], 'tmp.png')
+        fmg = Image.open('tmp.png')
+        fmg = fmg.resize((512,512))
+        # fmg.save('radar/'+str(i)+'.png')
+        img.paste(fmg,(l[i],t[i]),fmg)
+        # img.save('radar/'+str(i)+'_c.png')
+
+    img = img.convert('RGB')    
+    return img
+
+def windDirImg(wind_dir):
+    fig=plt.figure(figsize=(1,1))
+    ax=fig.add_axes([0.1, 0.1, 0.8, 0.8],polar=True)
+    ax.set_theta_zero_location('N')
+    ax.set_theta_direction(-1)
+    ax.set_rmax(90)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    plt.arrow(np.radians(wind_dir),np.radians(wind_dir),0,0)
+    plt.savefig('wind_dir.png', transparent=True)
+    wind_dir_img = Image.open('wind_dir.png')
+    return wind_dir_img
+
+
 format = "%Y-%m-%d %H:%M:%S.%f"
 reftime = 1800
 if os.path.exists('lastrun.txt'):
@@ -40,101 +131,18 @@ if os.path.exists('lastrun.txt'):
     elapsed = datetime.datetime.now().timestamp() - lastrun
 else:
     elapsed = reftime+1
-    
+
+#-----------------------------
+# TEMP DIABLE LOGIC
+elapsed = reftime-1
+#-----------------------------
+
 if elapsed > reftime:
+
 #---------------------------------
 # Current Weather Image
-#-------------------------------------
+#---------------------------------
 
-    def parseData(data):
-    
-        attrList = data.split(';')
-        h = attrList[0]
-        h = h.split(':')[1].strip()
-        h = int(h.split('px')[0].strip())
-    
-        w = attrList[1]
-        w = w.split(':')[1].strip()
-        w = int(w.split('px')[0].strip())
-    
-        l = attrList[2]
-        l = l.split(':')[1].strip()
-        l = int(l.split('px')[0].strip())
-    
-        t = attrList[3]
-        t = t.split(':')[1].strip()
-        t = int(t.split('px')[0].strip())
-    
-        return [h,w,l,t]
-    
-    def createBaseFromTiles(s, l, t, h, w):
-        # print(s,l,t)
-        # min_l = np.min(l)
-        max_l = np.max(l)+w
-        # min_t = np.min(t)
-        max_t = np.max(t)+h
-        img = Image.new('RGBA',(max_l, max_t))
-        # print(min_l, max_l, min_t, max_t)
-    
-        
-        for i in range(len(s)):
-            
-            urllib.request.urlretrieve(s[i], 'tmp.png')
-            fmg = Image.open('tmp.png')
-            # fmg.resize((w,h))
-            img.paste(fmg,(l[i],t[i]))
-            # img.show()
-        img = img.convert('RGB')
-        
-        t=3
-        width = img.size[0] 
-        height = img.size[1] 
-        for i in range(0,width):# process all pixels
-            for j in range(0,height):
-                data = img.getpixel((i,j))
-                #print(data) #(255, 255, 255)
-                if ((data[0]>=211-t and data[0]<=211+t) and (data[1]>=217-t and data[1]<=217+t) and (data[2]>=220-t and data[2]<=220+t)):
-                    img.putpixel((i,j),(data[0],data[1],255))
-        
-        return img
-    
-    def pasteCloudLayer(img, s,l,t,h,w):
-        for i in range(len(s)):
-            
-            urllib.request.urlretrieve(s[i], 'tmp.png')
-            fmg = Image.open('tmp.png')
-            # fmg.resize((w,h))
-            img.paste(fmg,(l[i],t[i]),fmg)
-    
-        img = img.convert('RGB')    
-        return img
-    
-    def pasteRadarLayer(img, s,l,t,h,w):
-        for i in range(len(s)):
-            
-            urllib.request.urlretrieve(s[i], 'tmp.png')
-            fmg = Image.open('tmp.png')
-            fmg = fmg.resize((512,512))
-            # fmg.save('radar/'+str(i)+'.png')
-            img.paste(fmg,(l[i],t[i]),fmg)
-            # img.save('radar/'+str(i)+'_c.png')
-            
-        img = img.convert('RGB')    
-        return img
-    
-    def windDirImg(wind_dir):
-        fig=plt.figure(figsize=(1,1))
-        ax=fig.add_axes([0.1, 0.1, 0.8, 0.8],polar=True)
-        ax.set_theta_zero_location('N')
-        ax.set_theta_direction(-1)
-        ax.set_rmax(90)
-        ax.set_xticks([])
-        ax.set_yticks([])
-        plt.arrow(np.radians(wind_dir),np.radians(wind_dir),0,0)
-        plt.savefig('wind_dir.png', transparent=True)
-        wind_dir_img = Image.open('wind_dir.png')
-        return wind_dir_img
-    
     options = Options()
     options.add_argument('--disable-gpu')
     options.add_argument("--headless")
