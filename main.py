@@ -335,7 +335,7 @@ if elapsed > reftime:
     # Historical Data
     #-----------------------------------
     
-    df = pd.read_csv('https://raw.githubusercontent.com/kaustuvchatterjee/vskp2/main/vskpwdata.csv')
+    df = pd.read_csv('vskpwdata.csv')
     df['obsDate'] = pd.to_datetime(df['obsDate'], format = "%d-%m-%y %H:%M")
     
     fig2, ax = plt.subplots(3,1, figsize=(12,12), sharex=True)
