@@ -31,6 +31,8 @@ import matplotlib.dates as mdates
 import pandas as pd
 from windrose import WindroseAxes
 
+import ephem
+
 ## Procs
 def parseData(data):
 
@@ -445,3 +447,102 @@ f.close()
     
 st.image('meteo.jpg')
 st.image('windrose.jpg')
+
+
+#-------------------------------
+def plot_object(ax,x,y,txt,color,markersize):
+    x1,y1 = x,y
+    x2,y2 = markersize/2,markersize/2
+    ax.plot(x, y, marker='o', color=color, markersize=markersize)
+    ax.annotate(txt,
+                xy=(x1, y1), xycoords='data',
+                xytext=(x2, y2), textcoords='offset points',
+                )
+
+# Observer Location
+lat = '17.674379'
+lon = '83.284501'
+
+# Observer Data
+vsk = ephem.Observer()
+vsk.lat = lat
+vsk.lon = lon
+vsk.date = datetime.utcnow()
+
+fig, ax = plt.subplots(figsize=[12,12])
+ax = plt.subplot(1,1,1, projection='polar')
+
+# Sun
+sun = ephem.Sun(vsk)
+if np.degrees(sun.alt)>0:
+    plot_object(ax, sun.az, np.degrees(sun.alt), '','orange',np.abs(sun.mag-14.7))
+    sr = ephem.localtime(vsk.previous_rising(ephem.Sun()))
+    ss = ephem.localtime(vsk.next_setting(ephem.Sun()))
+    txt = 'Sunrise: '+ datetime.strftime(sr,'%H:%M')+'\nSunset : '+datetime.strftime(ss,'%H:%M')
+    
+    ax.annotate(txt,
+                xy=(sun.az, np.degrees(sun.alt)), xycoords='data',
+                xytext=(0, -34), textcoords='offset points',
+                )
+    
+moon = ephem.Moon(vsk)
+if np.degrees(moon.alt)>0:
+    plot_object(ax, moon.az, np.degrees(moon.alt), '','grey',np.abs(moon.mag-14.7))
+    mr = ephem.localtime(vsk.previous_rising(ephem.Moon()))
+    ms = ephem.localtime(vsk.next_setting(ephem.Moon()))
+    mp = moon.moon_phase
+    fm = ephem.localtime(ephem.next_full_moon(vsk.date))
+    nm = ephem.localtime(ephem.next_new_moon(vsk.date))
+
+    txt = 'Moonrise: '+ datetime.strftime(mr,'%H:%M')+'\nMoonset : ' + \
+            datetime.strftime(ms,'%H:%M') + \
+            '\nMoon Phase: '+str(int(mp*100))+'%' + \
+            '\nNext Full Moon: '+ datetime.strftime(fm,'%d-%b-%y %H:%M') + \
+            '\nNextNew Moon: '+ datetime.strftime(nm,'%d-%b-%y %H:%M')
+    
+    ax.annotate(txt,
+                xy=(moon.az, np.degrees(moon.alt)), xycoords='data',
+                xytext=(0, -30), textcoords='offset points',
+                )
+    
+mer = ephem.Mercury(vsk)
+if np.degrees(mer.alt)>0:
+    plot_object(ax, mer.az, np.degrees(mer.alt), mer.name,'k',np.abs(mer.mag-14.7))
+    
+ven = ephem.Venus(vsk)
+if np.degrees(ven.alt)>0:
+    plot_object(ax, ven.az, np.degrees(ven.alt), ven.name,'k', np.abs(ven.mag-14.7))
+    
+mar = ephem.Mars(vsk)
+if np.degrees(mar.alt)>0:
+    plot_object(ax, mar.az, np.degrees(mar.alt), mer.name,'k',np.abs(mar.mag-14.7))
+    
+jup = ephem.Jupiter(vsk)
+if np.degrees(jup.alt)>0:
+    plot_object(ax, jup.az, np.degrees(jup.alt), jup.name,'k',np.abs(jup.mag-14.7))
+    
+sat = ephem.Saturn(vsk)
+if np.degrees(sat.alt)>0:
+    plot_object(ax, sat.az, np.degrees(sat.alt), sat.name,'k',np.abs(sat.mag-14.7))
+
+ura = ephem.Uranus(vsk)
+if np.degrees(ura.alt)>0:
+    plot_object(ax, ura.az, np.degrees(ura.alt), ura.name,'k',np.abs(ura.mag-14.7))
+    
+nep = ephem.Jupiter(vsk)
+if np.degrees(nep.alt)>0:
+    plot_object(ax, nep.az, np.degrees(nep.alt), nep.name,'k',np.abs(nep.mag-14.7))
+
+plu = ephem.Pluto(vsk)
+if np.degrees(plu.alt)>0:
+    plot_object(ax, plu.az, np.degrees(plu.alt), plu.name,'k',np.abs(plu.mag-14.7))
+    
+ax.set_theta_zero_location('N')
+ax.set_theta_direction(-1)
+ax.set_rmax(90)
+
+ax.set_rlim(bottom=90, top=0)
+ax.set_xticklabels(['N','NE','E','SE','S','SW','W','NW'])
+# ax.set_xticklabels = ['N','NE','E','SE','S','SW','W','NW']
+
+st.pyplot(fig)
