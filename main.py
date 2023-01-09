@@ -515,7 +515,7 @@ if np.degrees(ven.alt)>0:
     
 mar = ephem.Mars(vsk)
 if np.degrees(mar.alt)>0:
-    plot_object(ax, mar.az, np.degrees(mar.alt), mer.name,'k',np.abs(mar.mag-14.7))
+    plot_object(ax, mar.az, np.degrees(mar.alt), mar.name,'k',np.abs(mar.mag-14.7))
     
 jup = ephem.Jupiter(vsk)
 if np.degrees(jup.alt)>0:
