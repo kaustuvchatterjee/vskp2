@@ -483,7 +483,7 @@ if np.degrees(sun.alt)>0:
     sr = ephem.to_timezone(sr, zone)
     ss = vsk.next_setting(ephem.Sun())
     ss = ephem.to_timezone(ss, zone)
-    txt = 'Sunrise: '+ datetime.strftime(sr,'%H:%M')+'\nSunset : '+datetime.strftime(ss,'%H:%M')
+    txt = 'Sunrise: '+ datetime.datetime.strftime(sr,'%H:%M')+'\nSunset : '+datetime.datetime.strftime(ss,'%H:%M')
     
     ax.annotate(txt,
                 xy=(sun.az, np.degrees(sun.alt)), xycoords='data',
@@ -503,11 +503,11 @@ if np.degrees(moon.alt)>0:
     nm = ephem.next_new_moon(vsk.date)
     nm = ephem.to_timezone(nm, zone)
 
-    txt = 'Moonrise: '+ datetime.strftime(mr,'%H:%M')+'\nMoonset : ' + \
-            datetime.strftime(ms,'%H:%M') + \
+    txt = 'Moonrise: '+ datetime.datetime.strftime(mr,'%H:%M')+'\nMoonset : ' + \
+            datetime.datetime.strftime(ms,'%H:%M') + \
             '\nMoon Phase: '+str(int(mp*100))+'%' + \
-            '\nNext Full Moon: '+ datetime.strftime(fm,'%d-%b-%y %H:%M') + \
-            '\nNextNew Moon: '+ datetime.strftime(nm,'%d-%b-%y %H:%M')
+            '\nNext Full Moon: '+ datetime.datetime.strftime(fm,'%d-%b-%y %H:%M') + \
+            '\nNextNew Moon: '+ datetime.datetime.strftime(nm,'%d-%b-%y %H:%M')
     
     ax.annotate(txt,
                 xy=(moon.az, np.degrees(moon.alt)), xycoords='data',
