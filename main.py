@@ -492,7 +492,7 @@ if np.degrees(sun.alt)>0:
     
 moon = ephem.Moon(vsk)
 if np.degrees(moon.alt)>0:
-    plot_object(ax, moon.az, np.degrees(moon.alt), '','grey',np.abs(moon.mag-14.7))
+    plot_object(ax, moon.az, np.degrees(moon.alt), '',(moon.moon_phase,moon.moon_phase,moon.moon_phase),np.abs(moon.mag-14.7))
     mr = vsk.previous_rising(ephem.Moon())
     mr = ephem.to_timezone(mr, zone)
     ms = vsk.next_setting(ephem.Moon())
