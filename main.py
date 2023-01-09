@@ -552,6 +552,6 @@ ax.set_rmax(90)
 
 ax.set_rlim(bottom=90, top=0)
 ax.set_xticklabels(['N','NE','E','SE','S','SW','W','NW'])
-# ax.set_xticklabels = ['N','NE','E','SE','S','SW','W','NW']
+ax.set_title('Sky Map')
 
 st.pyplot(fig)
