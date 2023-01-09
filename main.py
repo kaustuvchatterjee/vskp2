@@ -467,7 +467,7 @@ lon = '83.284501'
 vsk = ephem.Observer()
 vsk.lat = lat
 vsk.lon = lon
-vsk.date = datetime.utcnow()
+vsk.date = datetime.datetime.utcnow()
 
 fig, ax = plt.subplots(figsize=[12,12])
 ax = plt.subplot(1,1,1, projection='polar')
