@@ -454,7 +454,7 @@ st.image('windrose.jpg')
 def plot_object(ax,x,y,txt,color,markersize):
     x1,y1 = x,y
     x2,y2 = markersize/2,markersize/2
-    ax.plot(x, y, marker='o', color=color, markersize=markersize)
+    ax.plot(x, y, marker='o', color=color, markersize=markersize, markeredgecolor='k')
     ax.annotate(txt,
                 xy=(x1, y1), xycoords='data',
                 xytext=(x2, y2), textcoords='offset points',
