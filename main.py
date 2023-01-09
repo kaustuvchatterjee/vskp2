@@ -511,7 +511,7 @@ if np.degrees(moon.alt)>0:
     
     ax.annotate(txt,
                 xy=(moon.az, np.degrees(moon.alt)), xycoords='data',
-                xytext=(0, -30), textcoords='offset points',
+                xytext=(0, 30), textcoords='offset points',
                 )
     
 mer = ephem.Mercury(vsk)
