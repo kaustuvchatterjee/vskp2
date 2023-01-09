@@ -32,6 +32,7 @@ import pandas as pd
 from windrose import WindroseAxes
 
 import ephem
+from zoneinfo import ZoneInfo
 
 ## Procs
 def parseData(data):
@@ -468,6 +469,8 @@ vsk = ephem.Observer()
 vsk.lat = lat
 vsk.lon = lon
 vsk.date = datetime.datetime.utcnow()
+tz = 'Asia/Kolkata'
+zone = ZoneInfo(tz)
 
 fig, ax = plt.subplots(figsize=[12,12])
 ax = plt.subplot(1,1,1, projection='polar')
@@ -476,9 +479,11 @@ ax = plt.subplot(1,1,1, projection='polar')
 sun = ephem.Sun(vsk)
 if np.degrees(sun.alt)>0:
     plot_object(ax, sun.az, np.degrees(sun.alt), '','orange',np.abs(sun.mag-14.7))
-    sr = ephem.localtime(vsk.previous_rising(ephem.Sun()))
-    ss = ephem.localtime(vsk.next_setting(ephem.Sun()))
-    txt = 'Sunrise: '+ datetime.datetime.strftime(sr,'%H:%M')+'\nSunset : '+datetime.datetime.strftime(ss,'%H:%M')
+    sr = vsk.previous_rising(ephem.Sun())
+    sr = ephem.to_timezone(sr, zone)
+    ss = vsk.next_setting(ephem.Sun())
+    ss = ephem.to_timezone(ss, zone)
+    txt = 'Sunrise: '+ datetime.strftime(sr,'%H:%M')+'\nSunset : '+datetime.strftime(ss,'%H:%M')
     
     ax.annotate(txt,
                 xy=(sun.az, np.degrees(sun.alt)), xycoords='data',
@@ -488,17 +493,21 @@ if np.degrees(sun.alt)>0:
 moon = ephem.Moon(vsk)
 if np.degrees(moon.alt)>0:
     plot_object(ax, moon.az, np.degrees(moon.alt), '','grey',np.abs(moon.mag-14.7))
-    mr = ephem.localtime(vsk.previous_rising(ephem.Moon()))
-    ms = ephem.localtime(vsk.next_setting(ephem.Moon()))
+    mr = vsk.previous_rising(ephem.Moon())
+    mr = ephem.to_timezone(mr, zone)
+    ms = vsk.next_setting(ephem.Moon())
+    ms = ephem.to_timezone(ms, zone)
     mp = moon.moon_phase
-    fm = ephem.localtime(ephem.next_full_moon(vsk.date))
-    nm = ephem.localtime(ephem.next_new_moon(vsk.date))
+    fm = ephem.next_full_moon(vsk.date)
+    fm = ephem.to_timezone(fm, zone)
+    nm = ephem.next_new_moon(vsk.date)
+    nm = ephem.to_timezone(nm, zone)
 
-    txt = 'Moonrise: '+ datetime.datetime.strftime(mr,'%H:%M')+'\nMoonset : ' + \
-            datetime.datetime.strftime(ms,'%H:%M') + \
+    txt = 'Moonrise: '+ datetime.strftime(mr,'%H:%M')+'\nMoonset : ' + \
+            datetime.strftime(ms,'%H:%M') + \
             '\nMoon Phase: '+str(int(mp*100))+'%' + \
-            '\nNext Full Moon: '+ datetime.datetime.strftime(fm,'%d-%b-%y %H:%M') + \
-            '\nNextNew Moon: '+ datetime.datetime.strftime(nm,'%d-%b-%y %H:%M')
+            '\nNext Full Moon: '+ datetime.strftime(fm,'%d-%b-%y %H:%M') + \
+            '\nNextNew Moon: '+ datetime.strftime(nm,'%d-%b-%y %H:%M')
     
     ax.annotate(txt,
                 xy=(moon.az, np.degrees(moon.alt)), xycoords='data',
