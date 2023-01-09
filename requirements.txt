@@ -8,3 +8,4 @@ streamlit==1.16.0
 windrose==1.8.1
 seleniumbase
 webdriver-manager
+pyephem
