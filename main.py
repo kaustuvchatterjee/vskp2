@@ -460,6 +460,26 @@ def plot_object(ax,x,y,txt,color,markersize):
                 xytext=(x2, y2), textcoords='offset points',
                 )
 
+ def plot_moon(ax,x,y,txt,color,markersize):
+    x1,y1 = x,y
+    x2,y2 = markersize/2,markersize/2
+    nnm = ephem.next_new_moon(vsk.date)  
+    pnm = ephem.previous_new_moon(vsk.date)  
+    lunation = (vsk.date - pnm) / (nnm - pnm)  
+    symbol = lunation * 26
+    if symbol < 0.2 or symbol > 25.8:
+        symbol = '1'
+    else:  
+        symbol = chr(ord('A') + int(symbol + 0.5) - 1)
+    
+    prop = FontProperties(fname='moon_phases.ttf', size=markersize)
+    ax.text(x,y, symbol, fontproperties=prop)
+    ax.annotate(txt,
+            xy=(x1, y1), xycoords='data',
+            xytext=(x2, y2), textcoords='offset points',
+            )   
+    
+ 
 # Observer Location
 lat = '17.674379'
 lon = '83.284501'
@@ -492,7 +512,7 @@ if np.degrees(sun.alt)>0:
     
 moon = ephem.Moon(vsk)
 if np.degrees(moon.alt)>0:
-    plot_object(ax, moon.az, np.degrees(moon.alt), '',(moon.moon_phase,moon.moon_phase,moon.moon_phase),np.abs(moon.mag-14.7))
+    plot_moon(ax, moon.az, np.degrees(moon.alt), '',(moon.moon_phase,moon.moon_phase,moon.moon_phase),np.abs(moon.mag-14.7))
     mr = vsk.previous_rising(ephem.Moon())
     mr = ephem.to_timezone(mr, zone)
     ms = vsk.next_setting(ephem.Moon())
