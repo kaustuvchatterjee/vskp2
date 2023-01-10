@@ -538,7 +538,7 @@ ura = ephem.Uranus(vsk)
 if np.degrees(ura.alt)>0:
     plot_object(ax, ura.az, np.degrees(ura.alt), ura.name,'k',np.abs(ura.mag-14.7))
     
-nep = ephem.Jupiter(vsk)
+nep = ephem.Neptune(vsk)
 if np.degrees(nep.alt)>0:
     plot_object(ax, nep.az, np.degrees(nep.alt), nep.name,'k',np.abs(nep.mag-14.7))
 
