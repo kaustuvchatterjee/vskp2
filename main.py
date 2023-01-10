@@ -460,7 +460,7 @@ def plot_object(ax,x,y,txt,color,markersize):
                 xytext=(x2, y2), textcoords='offset points',
                 )
 
- def plot_moon(ax,x,y,txt,color,markersize):
+def plot_moon(ax,x,y,txt,color,markersize):
     x1,y1 = x,y
     x2,y2 = markersize/2,markersize/2
     nnm = ephem.next_new_moon(vsk.date)  
