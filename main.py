@@ -6,6 +6,7 @@
 """
 import streamlit as st 
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 import numpy as np
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
