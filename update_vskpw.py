@@ -50,7 +50,7 @@ if x["cod"] != "404":
     # sunset = datetime.datetime.utcfromtimestamp(int(sunset)).strftime('%H:%M')
     dt = datetime.datetime.utcfromtimestamp(int(x["dt"]+int(x["timezone"]))).strftime('%d-%m-%y %H:%M')
     if 'rain' in x:
-        rain = x['rain']['ih']
+        rain = x['rain']['1h']
     else:
         rain = 0.0
 
