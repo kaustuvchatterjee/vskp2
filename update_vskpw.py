@@ -57,5 +57,7 @@ if x["cod"] != "404":
     # pop = int(f["list"][0]['pop']*100)
 
 # print([dt,temp,tempF,RH,mslp,wind_speed,wind_dir,clouds,rain])
-df = df.append({'obsDate':dt,'temp':temp,'tempFeel':tempF,'RH':RH,'MSLP':mslp,'windSpeed':wind_speed,'windDir':wind_dir,'clouds':clouds,'rain':rain}, ignore_index=True)
+df1 = pd.DataFrame({'obsDate':dt,'temp':temp,'tempFeel':tempF,'RH':RH,'MSLP':mslp,'windSpeed':wind_speed,'windDir':wind_dir,'clouds':clouds,'rain':rain})
+pd.concat(df, df1)
+# df = df.append({'obsDate':dt,'temp':temp,'tempFeel':tempF,'RH':RH,'MSLP':mslp,'windSpeed':wind_speed,'windDir':wind_dir,'clouds':clouds,'rain':rain}, ignore_index=True)
 df.to_csv('vskpwdata.csv', index=False)
