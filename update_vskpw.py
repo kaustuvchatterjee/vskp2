@@ -58,7 +58,7 @@ if x["cod"] != "404":
 
 # print([dt,temp,tempF,RH,mslp,wind_speed,wind_dir,clouds,rain])
 y = {'obsDate':[dt],'temp':[temp],'tempFeel':[tempF],'RH':[RH],'MSLP':[mslp],'windSpeed':[wind_speed],'windDir':[wind_dir],'clouds':[clouds],'rain':[rain]}
-df1 = pd.DataFrame(data=y)
+df1 = pd.DataFrame(data=y, index=[0])
 df = pd.concat([df, df1], ignore_index=True)
 # df = df.append({'obsDate':dt,'temp':temp,'tempFeel':tempF,'RH':RH,'MSLP':mslp,'windSpeed':wind_speed,'windDir':wind_dir,'clouds':clouds,'rain':rain}, ignore_index=True)
 df.to_csv('vskpwdata.csv', index=False)
