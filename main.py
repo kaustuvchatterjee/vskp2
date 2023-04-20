@@ -404,7 +404,7 @@ ax[2].quiver(x,y,u,v, color='#008080', width=0.005, pivot='mid', scale=5, scale_
 ax[2].set(xlabel="Date",
        ylabel="Wind Speed (km/h)",
        title="Wind")
-ax[2].set_ylim([0,30])
+ax[2].set_ylim([0,35])
 locator = mdates.AutoDateLocator(minticks=3, maxticks=12)
 formatter = mdates.ConciseDateFormatter(locator)
 formatter.formats = ['%y',  # ticks are mostly years
