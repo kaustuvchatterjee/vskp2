@@ -383,7 +383,7 @@ ax[1].set(xlabel="Date",
        ylabel="Relative Humidity (%)",
        title="Precipitation")
 ax2.set(ylabel="Precipitation (mm)")
-ax2.legend(loc=[0.007,0.76], frameon=False)
+ax2.legend(loc=[0.007,0.76], frameon=False, framealpha=1)
 ax2.set_ylim(bottom=0)
 
 ax[1].grid()
