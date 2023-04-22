@@ -359,7 +359,7 @@ ax[0].set(xlabel="Date",
        title="Temperature")
 ax[0].set_ylim([0,50])
 
-ax[0].legend()
+ax[0].legend(loc='upper left')
 ax[0].grid()
 
 
