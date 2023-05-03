@@ -370,7 +370,7 @@ y2 = np.array(df['rain'].astype(int))
 y3 = np.array(df['clouds'].astype(int))
 
 # ax[1].plot(x,y, color='C0', alpha=0.1, label='Relative Humidity')
-ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.2)
+ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.1)
 # ax[1].plot(x,y3, color='gray', alpha=0.1, label='cloud Cover')
 ax[1].fill_between(x,np.zeros(len(y3)),y3, color='gray', alpha=0.2)
 ax[1].legend(loc=2, framealpha=1)
