@@ -371,7 +371,7 @@ y3 = np.array(df['clouds'].astype(int))
 
 # ax[1].plot(x,y, color='C0', alpha=0.1, label='Relative Humidity')
 ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.1, label='Relative Humidity')
-ax[1].legend(loc=[0.007,0.98], framealpha=1)
+ax[1].legend(loc=[0.007,0.90], framealpha=1)
 ax[1].set_ylim(bottom=0)
 # ax[1].plot(x,y3, color='gray', alpha=0.1, label='cloud Cover')
 ax1 = ax[1].twinx()
