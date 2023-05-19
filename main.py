@@ -385,7 +385,7 @@ ax2.fill_between(x,np.zeros(len(y2)),y2, color='g', alpha=0.5)
 ax[1].set(xlabel="Date",
        ylabel="Relative Humidity (%)",
        title="Precipitation")
-ax2.set(ylabel="Cloud Cover (%)")
+ax2.set_ylabel("Cloud Cover (%)")
 ax2.set(ylabel="Precipitation (mm)")
 ax2.legend(loc=[0.007,0.76], framealpha=1)
 ax2.set_ylim([0,10])
