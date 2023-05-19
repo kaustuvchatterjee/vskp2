@@ -371,6 +371,7 @@ y3 = np.array(df['clouds'].astype(int))
 
 # ax[1].plot(x,y, color='C0', alpha=0.1, label='Relative Humidity')
 ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.1, label='Relative Humidity')
+ax[1].legend(loc=2, framealpha=1)
 # ax[1].plot(x,y3, color='gray', alpha=0.1, label='cloud Cover')
 ax1 = ax[1].twinx()
 ax1.fill_between(x,np.zeros(len(y3)),y3, color='gray', alpha=0.2, label='cloud Cover')
@@ -384,6 +385,7 @@ ax2.fill_between(x,np.zeros(len(y2)),y2, color='g', alpha=0.5)
 ax[1].set(xlabel="Date",
        ylabel="Relative Humidity (%)",
        title="Precipitation")
+ax2.set(ylabel="Cloud Cover (%)")
 ax2.set(ylabel="Precipitation (mm)")
 ax2.legend(loc=[0.007,0.76], framealpha=1)
 ax2.set_ylim([0,10])
