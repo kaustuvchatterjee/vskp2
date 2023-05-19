@@ -372,6 +372,7 @@ y3 = np.array(df['clouds'].astype(int))
 # ax[1].plot(x,y, color='C0', alpha=0.1, label='Relative Humidity')
 ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.1, label='Relative Humidity')
 ax[1].legend(loc=2, framealpha=1)
+ax[1].set_ylim(bottom=0)
 # ax[1].plot(x,y3, color='gray', alpha=0.1, label='cloud Cover')
 ax1 = ax[1].twinx()
 ax1.fill_between(x,np.zeros(len(y3)),y3, color='gray', alpha=0.2, label='cloud Cover')
@@ -412,7 +413,7 @@ ax[2].quiver(x,y,u,v, color='#008080', width=0.005, pivot='mid', scale=5, scale_
 ax[2].set(xlabel="Date",
        ylabel="Wind Speed (km/h)",
        title="Wind")
-ax[2].set_ylim([0,50])
+ax[2].set_ylim([0,45])
 locator = mdates.AutoDateLocator(minticks=3, maxticks=12)
 formatter = mdates.ConciseDateFormatter(locator)
 formatter.formats = ['%y',  # ticks are mostly years
