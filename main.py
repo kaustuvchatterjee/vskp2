@@ -375,10 +375,10 @@ ax[1].legend(loc=2, framealpha=1)
 # ax[1].plot(x,y3, color='gray', alpha=0.1, label='cloud Cover')
 ax1 = ax[1].twinx()
 ax1.fill_between(x,np.zeros(len(y3)),y3, color='gray', alpha=0.2, label='cloud Cover')
-ax1.legend(loc=[0.007,0.86], framealpha=1)
+ax1.legend(loc=[0.007,0.82], framealpha=1)
 ax1.set_ylim(bottom=0)
 ax2 = ax[1].twinx()
-ax2.spines.right.set_position(("axes", 1.1))
+ax2.spines.right.set_position(("axes", 1.08))
 ax2.plot(x,y2, color = 'g', label='Rain')
 ax2.fill_between(x,np.zeros(len(y2)),y2, color='g', alpha=0.5)
 
@@ -412,7 +412,7 @@ ax[2].quiver(x,y,u,v, color='#008080', width=0.005, pivot='mid', scale=5, scale_
 ax[2].set(xlabel="Date",
        ylabel="Wind Speed (km/h)",
        title="Wind")
-ax[2].set_ylim([0,35])
+ax[2].set_ylim([0,50])
 locator = mdates.AutoDateLocator(minticks=3, maxticks=12)
 formatter = mdates.ConciseDateFormatter(locator)
 formatter.formats = ['%y',  # ticks are mostly years
