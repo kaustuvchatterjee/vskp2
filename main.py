@@ -370,7 +370,7 @@ y2 = np.array(df['rain'].astype(int))
 y3 = np.array(df['clouds'].astype(int))
 
 # ax[1].plot(x,y, color='C0', alpha=0.1, label='Relative Humidity')
-ax[1].spines.right.set_position(("axes", -0.01))
+ax[1].spines.right.set_position(("axes", -0.02))
 ax[1].fill_between(x,np.zeros(len(y)),y, color='C0', alpha=0.1, label='Relative Humidity')
 ax[1].legend(loc=[0.007,0.90], framealpha=1)
 ax[1].set_ylim(bottom=0)
