@@ -388,7 +388,7 @@ ax[1].set(xlabel="Date",
        title="Precipitation")
 ax1.set(ylabel="Cloud Cover (%)")
 ax2.set(ylabel="Precipitation (mm)")
-ax2.legend(loc=[0.007,0.76], framealpha=1)
+ax2.legend(loc=[0.007,0.74], framealpha=1)
 ax2.set_ylim([0,10])
 
 ax[1].spines['left'].set_color('C0')
