@@ -380,7 +380,7 @@ ax1.legend(loc=[0.007,0.82], framealpha=1)
 ax1.set_ylim(bottom=0)
 ax2 = ax[1].twinx()
 ax2.spines.right.set_position(("axes", 1.08))
-ax2.plot(x,y2, color = 'g', label='Rain')
+ax2.plot(x,y2, color = 'g', label='Precipitation')
 ax2.fill_between(x,np.zeros(len(y2)),y2, color='g', alpha=0.5)
 
 ax[1].set(xlabel="Date",
