@@ -391,7 +391,8 @@ ax[1].set(xlabel="Date",
 ax1.set(ylabel="Cloud Cover (%)")
 ax2.set(ylabel="Precipitation (mm)")
 ax2.legend(loc=[0.007,0.74], framealpha=1)
-ax2.set_ylim([0,10])
+plim = np.mean(y2)+(2*np.std(y2))
+ax2.set_ylim([0,plim])
 
 ax[1].spines['left'].set_color('C0')
 ax1.spines['right'].set_color('gray')
