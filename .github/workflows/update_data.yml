@@ -2,7 +2,7 @@ name: update_vskp
 
 on:
   schedule:
-    - cron: '40 * * * *' # runs at 12:00 UTC everyday
+    - cron: '*/30 * * * *' # runs at 12:00 UTC everyday
 
 jobs:
   build:
