@@ -60,7 +60,7 @@ if x["cod"] != "404":
     # pop = int(f["list"][0]['pop']*100)
 
 # print([dt,temp,tempF,RH,mslp,wind_speed,wind_dir,clouds,rain])
-if dt.hour != lasthr:
+if pd.to_datetime(dt).hour != lasthr:
     y = {'obsDate':[dt],'temp':[temp],'tempFeel':[tempF],'RH':[RH],'MSLP':[mslp],'windSpeed':[wind_speed],'windDir':[wind_dir],'clouds':[clouds],'rain':[rain]}
     df1 = pd.DataFrame(data=y, index=[0])
     df = pd.concat([df, df1], ignore_index=True)
