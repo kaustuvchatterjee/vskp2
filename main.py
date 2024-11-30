@@ -342,7 +342,7 @@ if elapsed > reftime:
 
 df = pd.read_csv('vskpwdata.csv')
 df['obsDate'] = pd.to_datetime(df['obsDate'], format = "%d-%m-%y %H:%M")
-# df = df[-720:]
+df = df[-720:]
 
 fig2, ax = plt.subplots(3,1, figsize=(12,12), sharex=True)
 
