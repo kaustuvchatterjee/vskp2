@@ -506,9 +506,10 @@ vsk.date = datetime.datetime.utcnow()
 tz = 'Asia/Kolkata'
 zone = ZoneInfo(tz)
 
-fig, ax = plt.subplots(figsize=[12,12])
-ax = plt.subplot(1,1,1, projection='polar')
-
+# fig, ax = plt.subplots(figsize=[12,12])
+# ax.subplot(1,1,1, projection='polar')
+fig = plt.figure(figsize=[12,12])
+ax = fig.add_subplot(111, projection='polar')
 # Sun
 sun = ephem.Sun(vsk)
 if np.degrees(sun.alt)>0:
